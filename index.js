@@ -58,5 +58,6 @@ nextButton.addEventListener("click", () => {
 searchBar.addEventListener("submit", (event) => {
   event.preventDefault();
   searchQuery = event.target.elements.query.value;
+  page = 1;
   fetchCharacters();
 });
