@@ -20,10 +20,9 @@ async function fetchCharacters() {
     const response = await fetch("https://rickandmortyapi.com/api/character");
     const data = await response.json();
     const characters = data.results;
-    console.log(characters);
+
     characters.forEach((character) => {
-      createCharacterCard();
-      cardContainer.append(card);
+      cardContainer.append(createCharacterCard(character));
     });
   } catch (error) {
     console.log();
