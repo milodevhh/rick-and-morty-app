@@ -1,5 +1,6 @@
-export function createCharacterCard() {
-  return `<li class="card">
+export function createCharacterCard(character) {
+  const card = document.createElement("li");
+  card.innerHTML = `
 <div class="card__image-container">
   <img
     class="card__image"
@@ -19,5 +20,6 @@ export function createCharacterCard() {
     <dd class="card__info-description">51</dd>
   </dl>
 </div>
-</li>`;
+`;
+  return card;
 }
