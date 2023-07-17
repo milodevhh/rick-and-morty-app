@@ -1,3 +1,5 @@
+Please check the results via [Vercel](https://rick-and-morty-app-git-searchbar-milodevhh.vercel.app/)
+
 # Recap Project 3: Rick and Morty App
 
 In this recap project, you are going to create a single page app for browsing all the characters of the famous tv show "Rick and Morty".
