@@ -12,12 +12,11 @@ const pagination = document.querySelector('[data-js="pagination"]');
 
 // States
 
-const maxPage = 42;
+let maxPage = 42;
 let page = 1;
 let searchQuery = "";
-pagination.textContent = `${page} / ${maxPage}`;
 
-async function fetchCharacters(page) {
+async function fetchCharacters() {
   cardContainer.innerHTML = "";
   try {
     const response = await fetch(
@@ -25,13 +24,12 @@ async function fetchCharacters(page) {
     );
     const data = await response.json();
     const characters = data.results;
-
+    maxPage = data.info.pages;
+    pagination.textContent = `${page} / ${maxPage}`;
     characters.forEach((character) => {
       cardContainer.append(createCharacterCard(character));
     });
-  } catch (error) {
-    console.log();
-  }
+  } catch (error) {}
 }
 fetchCharacters(page);
 
@@ -41,7 +39,7 @@ prevButton.addEventListener("click", () => {
   if (page === 1) {
     prevButton.disabled = true;
   } else {
-    prevButton.disabled = false;
+    nextButton.disabled = false;
   }
   pagination.textContent = `${page} / ${maxPage}`;
 });
@@ -49,18 +47,16 @@ prevButton.addEventListener("click", () => {
 nextButton.addEventListener("click", () => {
   page++;
   fetchCharacters(page);
-  if (page === 42) {
-    nextButtonButton.disabled = true;
+  if (page === maxPage) {
+    nextButton.disabled = true;
   } else {
     prevButton.disabled = false;
   }
-
   pagination.textContent = `${page} / ${maxPage}`;
 });
 
 searchBar.addEventListener("submit", (event) => {
   event.preventDefault();
-  fetchCharacters();
   searchQuery = event.target.elements.query.value;
-  console.log(searchQuery);
+  fetchCharacters();
 });
