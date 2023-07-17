@@ -32,32 +32,39 @@ async function fetchCharacters() {
   } catch (error) {}
 }
 fetchCharacters(page);
+checkButtons();
 
 prevButton.addEventListener("click", () => {
   page--;
   fetchCharacters(page);
-  if (page === 1) {
-    prevButton.disabled = true;
-  } else {
-    nextButton.disabled = false;
-  }
+  checkButtons();
   pagination.textContent = `${page} / ${maxPage}`;
 });
 
 nextButton.addEventListener("click", () => {
   page++;
   fetchCharacters(page);
-  if (page === maxPage) {
-    nextButton.disabled = true;
-  } else {
-    prevButton.disabled = false;
-  }
+  checkButtons();
   pagination.textContent = `${page} / ${maxPage}`;
 });
 
-searchBar.addEventListener("submit", (event) => {
+searchBar.addEventListener("submit", async (event) => {
   event.preventDefault();
   searchQuery = event.target.elements.query.value;
   page = 1;
-  fetchCharacters();
+  await fetchCharacters();
+  checkButtons();
 });
+
+function checkButtons() {
+  if (page === 1) {
+    prevButton.disabled = true;
+  } else {
+    prevButton.disabled = false;
+  }
+  if (page === maxPage) {
+    nextButton.disabled = true;
+  } else {
+    nextButton.disabled = false;
+  }
+}
